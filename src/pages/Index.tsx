@@ -4,11 +4,17 @@ import { useStock } from '@/hooks/useStock';
 import { StatsCards } from '@/components/StatsCards';
 import { ProductList } from '@/components/ProductList';
 import { ProductForm } from '@/components/ProductForm';
-import { StockCharts } from '@/components/StockCharts';
+import { InteractiveCharts } from '@/components/InteractiveCharts';
+import { AppSidebar } from '@/components/AppSidebar';
 import { Product } from '@/types/stock';
 import { Button } from '@/components/ui/button';
-import { RefreshCw, TrendingUp } from 'lucide-react';
+import { RefreshCw, TrendingUp, Menu } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { 
+  SidebarProvider, 
+  SidebarTrigger, 
+  SidebarInset 
+} from '@/components/ui/sidebar';
 
 const Index = () => {
   const { products, stats, addProduct, updateProduct, deleteProduct, resetStock } = useStock();
@@ -64,59 +70,73 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-primary rounded-lg">
-                <TrendingUp className="h-6 w-6 text-primary-foreground" />
+    <SidebarProvider>
+      <div className="min-h-screen w-full bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 flex">
+        <AppSidebar />
+        
+        <SidebarInset className="flex-1">
+          {/* Header */}
+          <header className="sticky top-0 z-10 border-b border-gray-800 bg-gray-900/80 backdrop-blur-sm">
+            <div className="flex h-16 items-center gap-4 px-6">
+              <SidebarTrigger className="text-gray-300 hover:text-white" />
+              
+              <div className="flex items-center gap-3 flex-1">
+                <div className="p-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg">
+                  <TrendingUp className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold text-white">Dashboard Analytics</h1>
+                  <p className="text-sm text-gray-400">Gestion de stock intelligente</p>
+                </div>
               </div>
-              <div>
-                <h1 className="text-2xl font-bold text-foreground">StockHub</h1>
-                <p className="text-sm text-muted-foreground">Gestion de stock moderne</p>
-              </div>
+              
+              <Button
+                variant="outline"
+                onClick={handleResetStock}
+                className="border-gray-700 bg-gray-800/50 text-gray-300 hover:bg-gray-700 hover:text-white"
+              >
+                <RefreshCw className="h-4 w-4 mr-2" />
+                Réinitialiser
+              </Button>
             </div>
-            <Button
-              variant="outline"
-              onClick={handleResetStock}
-              className="flex items-center gap-2"
-            >
-              <RefreshCw className="h-4 w-4" />
-              Réinitialiser
-            </Button>
-          </div>
-        </div>
-      </header>
+          </header>
 
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
-        <div className="space-y-8">
-          {/* Statistiques */}
-          <section>
-            <h2 className="text-xl font-semibold mb-4">Aperçu du stock</h2>
-            <StatsCards stats={stats} />
-          </section>
+          {/* Main Content */}
+          <main className="flex-1 p-6 space-y-8">
+            {/* Statistiques */}
+            <section>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full" />
+                <h2 className="text-2xl font-bold text-white">Aperçu du stock</h2>
+              </div>
+              <StatsCards stats={stats} />
+            </section>
 
-          {/* Graphiques */}
-          <section>
-            <h2 className="text-xl font-semibold mb-4">Analyses</h2>
-            <StockCharts products={products} />
-          </section>
+            {/* Graphiques interactifs */}
+            <section>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-1 h-8 bg-gradient-to-b from-emerald-500 to-cyan-500 rounded-full" />
+                <h2 className="text-2xl font-bold text-white">Analyses Avancées</h2>
+              </div>
+              <InteractiveCharts products={products} />
+            </section>
 
-          {/* Liste des produits */}
-          <section>
-            <h2 className="text-xl font-semibold mb-4">Produits</h2>
-            <ProductList
-              products={products}
-              onEdit={handleEditProduct}
-              onDelete={handleDeleteProduct}
-              onAdd={handleAddProduct}
-            />
-          </section>
-        </div>
-      </main>
+            {/* Liste des produits */}
+            <section>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-1 h-8 bg-gradient-to-b from-orange-500 to-red-500 rounded-full" />
+                <h2 className="text-2xl font-bold text-white">Inventaire</h2>
+              </div>
+              <ProductList
+                products={products}
+                onEdit={handleEditProduct}
+                onDelete={handleDeleteProduct}
+                onAdd={handleAddProduct}
+              />
+            </section>
+          </main>
+        </SidebarInset>
+      </div>
 
       {/* Formulaire modal */}
       <ProductForm
@@ -126,7 +146,7 @@ const Index = () => {
         product={editingProduct}
         categories={stats.categories}
       />
-    </div>
+    </SidebarProvider>
   );
 };
 
