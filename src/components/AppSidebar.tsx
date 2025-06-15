@@ -54,49 +54,54 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar className="border-r border-gray-800/50 bg-gradient-to-b from-gray-950/95 to-gray-900/95 backdrop-blur-xl">
-      <SidebarHeader className="p-4 border-b border-gray-800/50">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl animate-pulse-glow">
-            <TrendingUp className="h-6 w-6 text-white" />
+    <Sidebar className="border-r border-blue-500/20 bg-black/95 backdrop-blur-2xl">
+      <SidebarHeader className="p-6 border-b border-blue-500/20">
+        <div className="flex items-center gap-4">
+          <div className="relative p-3 bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl animate-pulse-blue">
+            <TrendingUp className="h-7 w-7 text-white" />
+            <div className="absolute inset-0 bg-blue-400/20 rounded-2xl blur-xl"></div>
           </div>
           {!isCollapsed && (
             <div>
-              <h2 className="text-lg font-bold text-white text-glow">StockHub</h2>
-              <p className="text-xs text-gray-400">Pro Analytics</p>
+              <h2 className="text-2xl font-bold text-white modern-heading">StockHub</h2>
+              <p className="text-sm text-blue-300/70 font-medium">Analytics Pro</p>
             </div>
           )}
         </div>
       </SidebarHeader>
 
-      <SidebarContent className="px-3 py-4">
+      <SidebarContent className="px-4 py-6">
         <SidebarGroup>
-          <SidebarGroupLabel className="text-gray-400 text-xs uppercase tracking-wider font-medium">
+          <SidebarGroupLabel className="text-blue-300/80 text-xs uppercase tracking-wider font-semibold mb-4">
             Navigation
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-2">
-              {mainNavItems.map((item) => (
+            <SidebarMenu className="space-y-3">
+              {mainNavItems.map((item, index) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink
                       to={item.url}
-                      className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-300 group border-animate ${
+                      className={`group flex items-center gap-4 px-4 py-4 rounded-xl transition-all duration-300 relative overflow-hidden ${
                         isActive(item.url)
-                          ? 'bg-gradient-to-r from-blue-600/30 to-purple-600/30 text-blue-400 border border-blue-500/40 shadow-lg animate-glow'
-                          : 'text-gray-300 hover:bg-gray-800/40 hover:text-white hover:scale-105 hover-glow'
+                          ? 'bg-gradient-to-r from-blue-600/80 to-blue-700/80 text-white border border-blue-400/50 shadow-lg shadow-blue-500/25 scale-105'
+                          : 'text-blue-200/80 hover:bg-blue-500/10 hover:text-white hover:scale-102 border border-transparent hover:border-blue-500/30'
                       }`}
+                      style={{ animationDelay: `${index * 0.1}s` }}
                     >
+                      {/* Effet de brillance au survol */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                      
                       <item.icon 
-                        className={`h-5 w-5 transition-all duration-300 ${
-                          isActive(item.url) ? 'scale-110 text-blue-400' : 'group-hover:scale-110 group-hover:text-blue-400'
+                        className={`h-6 w-6 transition-all duration-300 relative z-10 ${
+                          isActive(item.url) ? 'text-white scale-110' : 'group-hover:text-blue-300 group-hover:scale-110'
                         }`} 
                       />
                       {!isCollapsed && (
-                        <span className="font-medium">{item.title}</span>
+                        <span className="font-semibold relative z-10">{item.title}</span>
                       )}
                       {isActive(item.url) && !isCollapsed && (
-                        <div className="ml-auto w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+                        <div className="ml-auto w-2 h-2 bg-white rounded-full animate-pulse relative z-10" />
                       )}
                     </NavLink>
                   </SidebarMenuButton>
@@ -106,8 +111,8 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarGroup className="mt-8">
-          <SidebarGroupLabel className="text-gray-400 text-xs uppercase tracking-wider font-medium">
+        <SidebarGroup className="mt-10">
+          <SidebarGroupLabel className="text-blue-300/80 text-xs uppercase tracking-wider font-semibold mb-4">
             Actions Rapides
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -117,15 +122,15 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <button
                       onClick={() => handleQuickAction(action.action)}
-                      className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-300 group ${
+                      className={`w-full group flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 relative overflow-hidden ${
                         activeAction === action.action
-                          ? 'bg-gradient-to-r from-emerald-600/30 to-cyan-600/30 text-emerald-400 scale-95 shadow-lg'
-                          : 'text-gray-300 hover:bg-gray-800/40 hover:text-white hover:scale-105 hover-glow'
+                          ? 'bg-gradient-to-r from-blue-500/60 to-blue-600/60 text-white scale-95 shadow-lg border border-blue-400/50'
+                          : 'text-blue-200/70 hover:bg-blue-500/10 hover:text-white hover:scale-102 border border-transparent hover:border-blue-500/20'
                       }`}
                     >
                       <action.icon 
                         className={`h-5 w-5 transition-all duration-300 ${
-                          activeAction === action.action ? 'scale-110 rotate-12 text-emerald-400' : 'group-hover:scale-110 group-hover:text-emerald-400'
+                          activeAction === action.action ? 'text-white scale-110 rotate-12' : 'group-hover:text-blue-300 group-hover:scale-110'
                         }`} 
                       />
                       {!isCollapsed && (
@@ -140,15 +145,16 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="p-4 border-t border-gray-800/50">
-        <div className="flex items-center gap-3 hover-glow rounded-xl p-2 transition-all duration-300">
-          <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center animate-gradient">
-            <Settings className="h-4 w-4 text-white" />
+      <SidebarFooter className="p-4 border-t border-blue-500/20">
+        <div className="group flex items-center gap-4 hover-lift rounded-xl p-3 transition-all duration-300 border border-transparent hover:border-blue-500/30">
+          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center relative">
+            <Settings className="h-5 w-5 text-white" />
+            <div className="absolute inset-0 bg-blue-400/20 rounded-xl blur-lg group-hover:blur-xl transition-all duration-300"></div>
           </div>
           {!isCollapsed && (
             <div className="flex-1">
-              <p className="text-sm font-medium text-white">Admin</p>
-              <p className="text-xs text-gray-400">Paramètres</p>
+              <p className="text-sm font-semibold text-white">Admin</p>
+              <p className="text-xs text-blue-300/70">Paramètres système</p>
             </div>
           )}
         </div>

@@ -12,69 +12,95 @@ export function StatsCards({ stats }: StatsCardsProps) {
       title: 'Total Produits',
       value: stats.totalProducts,
       icon: Package,
-      gradient: 'from-blue-500 to-cyan-500',
-      shadowColor: 'shadow-blue-500/20',
+      gradient: 'from-blue-600 to-blue-800',
+      shadowColor: 'shadow-blue-500/25',
+      bgGlow: 'bg-blue-500/10',
     },
     {
       title: 'Valeur Totale',
       value: `${stats.totalValue.toLocaleString('fr-FR')} €`,
       icon: TrendingUp,
-      gradient: 'from-emerald-500 to-teal-500',
-      shadowColor: 'shadow-emerald-500/20',
+      gradient: 'from-blue-500 to-blue-700',
+      shadowColor: 'shadow-blue-400/25',
+      bgGlow: 'bg-blue-400/10',
     },
     {
       title: 'Stock Faible',
       value: stats.lowStockItems,
       icon: AlertTriangle,
-      gradient: 'from-orange-500 to-amber-500',
-      shadowColor: 'shadow-orange-500/20',
+      gradient: 'from-blue-400 to-blue-600',
+      shadowColor: 'shadow-blue-300/25',
+      bgGlow: 'bg-blue-300/10',
     },
     {
       title: 'Rupture Stock',
       value: stats.outOfStockItems,
       icon: XCircle,
-      gradient: 'from-red-500 to-rose-500',
-      shadowColor: 'shadow-red-500/20',
+      gradient: 'from-blue-700 to-blue-900',
+      shadowColor: 'shadow-blue-600/25',
+      bgGlow: 'bg-blue-600/10',
     },
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div className="modern-grid mb-12">
       {cards.map((card, index) => {
         const Icon = card.icon;
         return (
           <div 
             key={card.title} 
-            className={`group relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-6 shadow-xl ${card.shadowColor} hover:shadow-2xl transition-all duration-300 hover:scale-105 animate-fade-in`}
-            style={{ animationDelay: `${index * 0.1}s` }}
+            className={`group relative modern-card hover-lift transition-all duration-500 ${card.shadowColor}`}
+            style={{ animationDelay: `${index * 0.15}s` }}
           >
             {/* Effet de brillance au survol */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
             
-            <div className="relative flex items-center justify-between">
-              <div className="space-y-3">
-                <p className="text-sm font-medium text-gray-400 uppercase tracking-wider">
-                  {card.title}
-                </p>
-                <p className="text-3xl font-bold text-white group-hover:scale-110 transition-transform duration-300">
-                  {card.value}
-                </p>
+            {/* Lueur de fond */}
+            <div className={`absolute inset-0 ${card.bgGlow} rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+            
+            <div className="relative p-8">
+              <div className="flex items-start justify-between mb-6">
+                <div className="space-y-3">
+                  <p className="text-sm font-semibold text-blue-200/80 uppercase tracking-wider">
+                    {card.title}
+                  </p>
+                  <p className="text-4xl font-bold text-white group-hover:scale-110 transition-transform duration-300">
+                    {card.value}
+                  </p>
+                </div>
+                
+                <div className={`relative p-4 rounded-2xl bg-gradient-to-br ${card.gradient} shadow-xl group-hover:rotate-12 group-hover:scale-110 transition-all duration-300`}>
+                  <Icon className="h-8 w-8 text-white" />
+                  <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} rounded-2xl blur-lg opacity-50 group-hover:opacity-100 transition-opacity duration-300`} />
+                </div>
               </div>
-              <div className={`p-4 rounded-2xl bg-gradient-to-r ${card.gradient} shadow-lg group-hover:rotate-12 transition-transform duration-300`}>
-                <Icon className="h-8 w-8 text-white" />
+              
+              {/* Barre de progression moderne */}
+              <div className="relative">
+                <div className="h-2 bg-black/50 rounded-full overflow-hidden border border-blue-500/20">
+                  <div 
+                    className={`h-full bg-gradient-to-r ${card.gradient} rounded-full transition-all duration-1000 ease-out relative`}
+                    style={{ 
+                      width: index === 0 ? '85%' : index === 1 ? '95%' : index === 2 ? '60%' : '30%',
+                      animationDelay: `${index * 0.3}s`
+                    }}
+                  >
+                    {/* Effet de brillance sur la barre */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-slide-glow"></div>
+                  </div>
+                </div>
+                
+                {/* Pourcentage */}
+                <div className="flex justify-end mt-2">
+                  <span className="text-xs text-blue-300/70 font-medium">
+                    {index === 0 ? '85%' : index === 1 ? '95%' : index === 2 ? '60%' : '30%'}
+                  </span>
+                </div>
               </div>
             </div>
             
-            {/* Indicateur de progression */}
-            <div className="mt-4 h-1 bg-gray-700 rounded-full overflow-hidden">
-              <div 
-                className={`h-full bg-gradient-to-r ${card.gradient} rounded-full transition-all duration-1000 ease-out`}
-                style={{ 
-                  width: index === 0 ? '75%' : index === 1 ? '90%' : index === 2 ? '45%' : '20%',
-                  animationDelay: `${index * 0.2}s`
-                }}
-              />
-            </div>
+            {/* Bordure animée */}
+            <div className="absolute inset-0 rounded-2xl border-animate opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </div>
         );
       })}
