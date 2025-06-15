@@ -54,15 +54,15 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar className="border-r border-gray-800 bg-gradient-to-b from-gray-900 to-gray-950">
-      <SidebarHeader className="p-4 border-b border-gray-800">
+    <Sidebar className="border-r border-gray-800/50 bg-gradient-to-b from-gray-950/95 to-gray-900/95 backdrop-blur-xl">
+      <SidebarHeader className="p-4 border-b border-gray-800/50">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg">
+          <div className="p-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl animate-pulse-glow">
             <TrendingUp className="h-6 w-6 text-white" />
           </div>
           {!isCollapsed && (
             <div>
-              <h2 className="text-lg font-bold text-white">StockHub</h2>
+              <h2 className="text-lg font-bold text-white text-glow">StockHub</h2>
               <p className="text-xs text-gray-400">Pro Analytics</p>
             </div>
           )}
@@ -71,25 +71,25 @@ export function AppSidebar() {
 
       <SidebarContent className="px-3 py-4">
         <SidebarGroup>
-          <SidebarGroupLabel className="text-gray-400 text-xs uppercase tracking-wider">
+          <SidebarGroupLabel className="text-gray-400 text-xs uppercase tracking-wider font-medium">
             Navigation
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-1">
+            <SidebarMenu className="space-y-2">
               {mainNavItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink
                       to={item.url}
-                      className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group ${
+                      className={`flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-300 group border-animate ${
                         isActive(item.url)
-                          ? 'bg-gradient-to-r from-blue-600/20 to-purple-600/20 text-blue-400 border border-blue-500/30'
-                          : 'text-gray-300 hover:bg-gray-800/50 hover:text-white'
+                          ? 'bg-gradient-to-r from-blue-600/30 to-purple-600/30 text-blue-400 border border-blue-500/40 shadow-lg animate-glow'
+                          : 'text-gray-300 hover:bg-gray-800/40 hover:text-white hover:scale-105 hover-glow'
                       }`}
                     >
                       <item.icon 
-                        className={`h-5 w-5 transition-transform duration-200 ${
-                          isActive(item.url) ? 'scale-110' : 'group-hover:scale-105'
+                        className={`h-5 w-5 transition-all duration-300 ${
+                          isActive(item.url) ? 'scale-110 text-blue-400' : 'group-hover:scale-110 group-hover:text-blue-400'
                         }`} 
                       />
                       {!isCollapsed && (
@@ -106,26 +106,26 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarGroup className="mt-6">
-          <SidebarGroupLabel className="text-gray-400 text-xs uppercase tracking-wider">
+        <SidebarGroup className="mt-8">
+          <SidebarGroupLabel className="text-gray-400 text-xs uppercase tracking-wider font-medium">
             Actions Rapides
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-1">
+            <SidebarMenu className="space-y-2">
               {quickActions.map((action) => (
                 <SidebarMenuItem key={action.title}>
                   <SidebarMenuButton asChild>
                     <button
                       onClick={() => handleQuickAction(action.action)}
-                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group ${
+                      className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-300 group ${
                         activeAction === action.action
-                          ? 'bg-gradient-to-r from-emerald-600/20 to-cyan-600/20 text-emerald-400 scale-95'
-                          : 'text-gray-300 hover:bg-gray-800/50 hover:text-white'
+                          ? 'bg-gradient-to-r from-emerald-600/30 to-cyan-600/30 text-emerald-400 scale-95 shadow-lg'
+                          : 'text-gray-300 hover:bg-gray-800/40 hover:text-white hover:scale-105 hover-glow'
                       }`}
                     >
                       <action.icon 
-                        className={`h-5 w-5 transition-all duration-200 ${
-                          activeAction === action.action ? 'scale-110 rotate-12' : 'group-hover:scale-105'
+                        className={`h-5 w-5 transition-all duration-300 ${
+                          activeAction === action.action ? 'scale-110 rotate-12 text-emerald-400' : 'group-hover:scale-110 group-hover:text-emerald-400'
                         }`} 
                       />
                       {!isCollapsed && (
@@ -140,9 +140,9 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="p-4 border-t border-gray-800">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+      <SidebarFooter className="p-4 border-t border-gray-800/50">
+        <div className="flex items-center gap-3 hover-glow rounded-xl p-2 transition-all duration-300">
+          <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center animate-gradient">
             <Settings className="h-4 w-4 text-white" />
           </div>
           {!isCollapsed && (

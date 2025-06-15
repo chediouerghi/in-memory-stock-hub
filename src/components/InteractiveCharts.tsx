@@ -100,6 +100,12 @@ export function InteractiveCharts({ products }: InteractiveChartsProps) {
           <ResponsiveContainer width="100%" height="100%">
             {activeChart === 'bar' && (
               <BarChart data={barData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                <defs>
+                  <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#4F46E5" />
+                    <stop offset="100%" stopColor="#22D3EE" />
+                  </linearGradient>
+                </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                 <XAxis 
                   dataKey="name" 
@@ -118,12 +124,6 @@ export function InteractiveCharts({ products }: InteractiveChartsProps) {
                   onMouseEnter={(data) => setHoveredData(data)}
                   onMouseLeave={() => setHoveredData(null)}
                 />
-                <defs>
-                  <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#4F46E5" />
-                    <stop offset="100%" stopColor="#22D3EE" />
-                  </linearGradient>
-                </defs>
               </BarChart>
             )}
 
@@ -176,6 +176,12 @@ export function InteractiveCharts({ products }: InteractiveChartsProps) {
 
             {activeChart === 'area' && (
               <AreaChart data={timeData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                <defs>
+                  <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#A78BFA" stopOpacity={0.8} />
+                    <stop offset="100%" stopColor="#A78BFA" stopOpacity={0.1} />
+                  </linearGradient>
+                </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                 <XAxis dataKey="month" stroke="#9CA3AF" fontSize={12} />
                 <YAxis stroke="#9CA3AF" fontSize={12} />
@@ -187,12 +193,6 @@ export function InteractiveCharts({ products }: InteractiveChartsProps) {
                   strokeWidth={2}
                   fill="url(#areaGradient)"
                 />
-                <defs>
-                  <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#A78BFA" stopOpacity={0.8} />
-                    <stop offset="100%" stopColor="#A78BFA" stopOpacity={0.1} />
-                  </linearGradient>
-                </defs>
               </AreaChart>
             )}
           </ResponsiveContainer>
