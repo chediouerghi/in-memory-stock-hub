@@ -98,72 +98,82 @@ export function ProductForm({ isOpen, onClose, onSubmit, product, categories }: 
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle>
+      <DialogContent className="sm:max-w-md bg-black/95 border border-blue-500/30 backdrop-blur-xl">
+        <DialogHeader className="border-b border-blue-500/20 pb-4">
+          <DialogTitle className="text-2xl font-bold text-white text-glow">
             {product ? 'Modifier le produit' : 'Ajouter un produit'}
           </DialogTitle>
         </DialogHeader>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6 mt-6">
           <div>
-            <Label htmlFor="name">Nom du produit</Label>
+            <Label htmlFor="name" className="text-blue-200 font-semibold">Nom du produit</Label>
             <Input
               id="name"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className={errors.name ? 'border-red-500' : ''}
+              className={`mt-2 bg-black/50 border-blue-500/30 text-white placeholder-blue-400 focus:border-blue-400 focus:ring-blue-400 ${
+                errors.name ? 'border-blue-300' : ''
+              }`}
+              placeholder="Entrez le nom du produit"
             />
-            {errors.name && <p className="text-sm text-red-500 mt-1">{errors.name}</p>}
+            {errors.name && <p className="text-sm text-blue-300 mt-1">{errors.name}</p>}
           </div>
 
           <div>
-            <Label htmlFor="category">Catégorie</Label>
+            <Label htmlFor="category" className="text-blue-200 font-semibold">Catégorie</Label>
             <Input
               id="category"
               value={formData.category}
               onChange={(e) => setFormData({ ...formData, category: e.target.value })}
               list="categories"
-              className={errors.category ? 'border-red-500' : ''}
+              className={`mt-2 bg-black/50 border-blue-500/30 text-white placeholder-blue-400 focus:border-blue-400 focus:ring-blue-400 ${
+                errors.category ? 'border-blue-300' : ''
+              }`}
+              placeholder="Sélectionnez ou créez une catégorie"
             />
             <datalist id="categories">
               {categories.map((cat) => (
                 <option key={cat} value={cat} />
               ))}
             </datalist>
-            {errors.category && <p className="text-sm text-red-500 mt-1">{errors.category}</p>}
+            {errors.category && <p className="text-sm text-blue-300 mt-1">{errors.category}</p>}
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="quantity">Quantité</Label>
+              <Label htmlFor="quantity" className="text-blue-200 font-semibold">Quantité</Label>
               <Input
                 id="quantity"
                 type="number"
                 min="0"
                 value={formData.quantity}
                 onChange={(e) => setFormData({ ...formData, quantity: Number(e.target.value) })}
-                className={errors.quantity ? 'border-red-500' : ''}
+                className={`mt-2 bg-black/50 border-blue-500/30 text-white placeholder-blue-400 focus:border-blue-400 focus:ring-blue-400 ${
+                  errors.quantity ? 'border-blue-300' : ''
+                }`}
               />
-              {errors.quantity && <p className="text-sm text-red-500 mt-1">{errors.quantity}</p>}
+              {errors.quantity && <p className="text-sm text-blue-300 mt-1">{errors.quantity}</p>}
             </div>
 
             <div>
-              <Label htmlFor="minQuantity">Quantité minimale</Label>
+              <Label htmlFor="minQuantity" className="text-blue-200 font-semibold">Quantité minimale</Label>
               <Input
                 id="minQuantity"
                 type="number"
                 min="0"
                 value={formData.minQuantity}
                 onChange={(e) => setFormData({ ...formData, minQuantity: Number(e.target.value) })}
-                className={errors.minQuantity ? 'border-red-500' : ''}
+                className={`mt-2 bg-black/50 border-blue-500/30 text-white placeholder-blue-400 focus:border-blue-400 focus:ring-blue-400 ${
+                  errors.minQuantity ? 'border-blue-300' : ''
+                }`}
               />
-              {errors.minQuantity && <p className="text-sm text-red-500 mt-1">{errors.minQuantity}</p>}
+              {errors.minQuantity && <p className="text-sm text-blue-300 mt-1">{errors.minQuantity}</p>}
             </div>
           </div>
 
           <div>
-            <Label htmlFor="price">Prix (€)</Label>
+            <Label htmlFor="price" className="text-blue-200 font-semibold">Prix (€)</Label>
             <Input
               id="price"
               type="number"
@@ -171,26 +181,36 @@ export function ProductForm({ isOpen, onClose, onSubmit, product, categories }: 
               min="0"
               value={formData.price}
               onChange={(e) => setFormData({ ...formData, price: Number(e.target.value) })}
-              className={errors.price ? 'border-red-500' : ''}
+              className={`mt-2 bg-black/50 border-blue-500/30 text-white placeholder-blue-400 focus:border-blue-400 focus:ring-blue-400 ${
+                errors.price ? 'border-blue-300' : ''
+              }`}
+              placeholder="0.00"
             />
-            {errors.price && <p className="text-sm text-red-500 mt-1">{errors.price}</p>}
+            {errors.price && <p className="text-sm text-blue-300 mt-1">{errors.price}</p>}
           </div>
 
           <div>
-            <Label htmlFor="description">Description (optionnel)</Label>
+            <Label htmlFor="description" className="text-blue-200 font-semibold">Description (optionnel)</Label>
             <Textarea
               id="description"
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               rows={3}
+              className="mt-2 bg-black/50 border-blue-500/30 text-white placeholder-blue-400 focus:border-blue-400 focus:ring-blue-400 resize-none"
+              placeholder="Description du produit..."
             />
           </div>
 
-          <div className="flex gap-3 pt-4">
-            <Button type="button" variant="outline" onClick={onClose} className="flex-1">
+          <div className="flex gap-4 pt-6 border-t border-blue-500/20">
+            <Button 
+              type="button" 
+              variant="outline" 
+              onClick={onClose} 
+              className="flex-1 border-blue-500/30 text-blue-200 hover:bg-blue-500/10 hover:border-blue-400"
+            >
               Annuler
             </Button>
-            <Button type="submit" className="flex-1">
+            <Button type="submit" className="flex-1 modern-button">
               {product ? 'Modifier' : 'Ajouter'}
             </Button>
           </div>

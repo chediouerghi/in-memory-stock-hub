@@ -1,19 +1,63 @@
 
 import { useState } from 'react';
-import { useStock } from '@/hooks/useStock';
 import { ProductList } from '@/components/ProductList';
 import { ProductForm } from '@/components/ProductForm';
-import { Layout } from '@/components/Layout';
 import { Product } from '@/types/stock';
-import { Button } from '@/components/ui/button';
-import { Plus, Package } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
 
-const Products = () => {
-  const { products, stats, addProduct, updateProduct, deleteProduct } = useStock();
+// Données de démonstration
+const initialProducts: Product[] = [
+  {
+    id: '1',
+    name: 'MacBook Pro 14"',
+    category: 'Électronique',
+    quantity: 25,
+    minQuantity: 5,
+    price: 2499,
+    description: 'Ordinateur portable haute performance',
+    createdAt: new Date('2024-01-15'),
+    updatedAt: new Date('2024-01-15'),
+  },
+  {
+    id: '2',
+    name: 'iPhone 15 Pro',
+    category: 'Électronique',
+    quantity: 3,
+    minQuantity: 10,
+    price: 1229,
+    description: 'Smartphone dernière génération',
+    createdAt: new Date('2024-01-10'),
+    updatedAt: new Date('2024-01-20'),
+  },
+  {
+    id: '3',
+    name: 'Chaise de Bureau',
+    category: 'Mobilier',
+    quantity: 0,
+    minQuantity: 2,
+    price: 299,
+    description: 'Chaise ergonomique pour bureau',
+    createdAt: new Date('2024-01-05'),
+    updatedAt: new Date('2024-01-25'),
+  },
+  {
+    id: '4',
+    name: 'T-shirt Premium',
+    category: 'Vêtements',
+    quantity: 45,
+    minQuantity: 15,
+    price: 29,
+    description: 'T-shirt en coton bio',
+    createdAt: new Date('2024-01-08'),
+    updatedAt: new Date('2024-01-18'),
+  },
+];
+
+export function Products() {
+  const [products, setProducts] = useState<Product[]>(initialProducts);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | undefined>();
-  const { toast } = useToast();
+
+  const categories = [...new Set(products.map(p => p.category))];
 
   const handleAddProduct = () => {
     setEditingProduct(undefined);
@@ -26,54 +70,70 @@ const Products = () => {
   };
 
   const handleDeleteProduct = (id: string) => {
-    const product = products.find(p => p.id === id);
-    if (product && window.confirm(`Êtes-vous sûr de vouloir supprimer "${product.name}" ?`)) {
-      deleteProduct(id);
-      toast({
-        title: "Produit supprimé",
-        description: `"${product.name}" a été supprimé du stock.`,
-      });
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {
+      setProducts(products.filter(p => p.id !== id));
     }
   };
 
-  const handleFormSubmit = (productData: Omit<Product, 'id' | 'createdAt' | 'updatedAt'> | Product) => {
-    if (editingProduct) {
-      updateProduct(productData as Product);
-      toast({
-        title: "Produit modifié",
-        description: `"${productData.name}" a été mis à jour.`,
-      });
+  const handleSubmitProduct = (productData: Omit<Product, 'id' | 'createdAt' | 'updatedAt'> | Product) => {
+    if ('id' in productData) {
+      // Modification
+      setProducts(products.map(p => 
+        p.id === productData.id 
+          ? { ...productData, updatedAt: new Date() }
+          : p
+      ));
     } else {
-      addProduct(productData as Omit<Product, 'id' | 'createdAt' | 'updatedAt'>);
-      toast({
-        title: "Produit ajouté",
-        description: `"${productData.name}" a été ajouté au stock.`,
-      });
+      // Ajout
+      const newProduct: Product = {
+        ...productData,
+        id: Date.now().toString(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      setProducts([...products, newProduct]);
     }
+    setIsFormOpen(false);
   };
 
   return (
-    <Layout>
-      <div className="p-6 space-y-8">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg">
-              <Package className="h-6 w-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold text-white">Gestion des Produits</h1>
-              <p className="text-gray-400">{products.length} produits au total</p>
-            </div>
-          </div>
+    <div className="min-h-screen dark-gradient p-8">
+      <div className="max-w-7xl mx-auto">
+        {/* En-tête moderne */}
+        <div className="mb-12 text-center">
+          <h1 className="modern-heading mb-4">Gestion des Produits</h1>
+          <p className="modern-subheading">
+            Gérez votre inventaire avec style et efficacité
+          </p>
           
-          <Button
-            onClick={handleAddProduct}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-          >
-            <Plus className="h-4 w-4 mr-2" />
-            Ajouter un produit
-          </Button>
+          {/* Effet de lueur décoratif */}
+          <div className="relative mt-8">
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
+          </div>
+        </div>
+
+        {/* Statistiques rapides */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div className="stats-card text-center">
+            <div className="text-3xl font-bold text-white mb-2">{products.length}</div>
+            <div className="text-blue-300">Total Produits</div>
+          </div>
+          <div className="stats-card text-center">
+            <div className="text-3xl font-bold text-white mb-2">
+              {products.filter(p => p.quantity <= p.minQuantity).length}
+            </div>
+            <div className="text-blue-300">Stock Faible</div>
+          </div>
+          <div className="stats-card text-center">
+            <div className="text-3xl font-bold text-white mb-2">
+              {products.filter(p => p.quantity === 0).length}
+            </div>
+            <div className="text-blue-300">Rupture</div>
+          </div>
+          <div className="stats-card text-center">
+            <div className="text-3xl font-bold text-white mb-2">{categories.length}</div>
+            <div className="text-blue-300">Catégories</div>
+          </div>
         </div>
 
         {/* Liste des produits */}
@@ -84,17 +144,15 @@ const Products = () => {
           onAdd={handleAddProduct}
         />
 
-        {/* Formulaire modal */}
+        {/* Formulaire d'ajout/modification */}
         <ProductForm
           isOpen={isFormOpen}
           onClose={() => setIsFormOpen(false)}
-          onSubmit={handleFormSubmit}
+          onSubmit={handleSubmitProduct}
           product={editingProduct}
-          categories={stats.categories}
+          categories={categories}
         />
       </div>
-    </Layout>
+    </div>
   );
-};
-
-export default Products;
+}

@@ -50,7 +50,24 @@ export function AppSidebar() {
   const handleQuickAction = (action: string) => {
     setActiveAction(action);
     setTimeout(() => setActiveAction(null), 300);
-    console.log(`Action: ${action}`);
+    
+    // Logique pour les actions rapides
+    switch(action) {
+      case 'add-product':
+        // Rediriger vers la page produits avec action d'ajout
+        window.location.href = '/products?action=add';
+        break;
+      case 'search':
+        // Focus sur la barre de recherche
+        const searchInput = document.querySelector('input[placeholder*="recherche"]') as HTMLInputElement;
+        if (searchInput) {
+          searchInput.focus();
+        }
+        break;
+      case 'alerts':
+        console.log('Ouverture des alertes...');
+        break;
+    }
   };
 
   return (
