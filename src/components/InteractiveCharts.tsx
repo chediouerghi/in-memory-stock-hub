@@ -1,5 +1,9 @@
-
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
+import { Product } from '@/types/stock';
+
+interface InteractiveChartsProps {
+  products?: Product[];
+}
 
 const salesData = [
   { month: 'Jan', ventes: 4500, stock: 85 },
@@ -33,7 +37,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-export function InteractiveCharts() {
+export function InteractiveCharts({ products }: InteractiveChartsProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       {/* Graphique des ventes */}

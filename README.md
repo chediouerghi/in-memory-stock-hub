@@ -1,73 +1,89 @@
-# Welcome to your Lovable project
 
-## Project info
+# StockHub - Gestionnaire d'Inventaire Moderne
 
-**URL**: https://lovable.dev/projects/ab362dc8-3812-41da-a246-44ab5a6c14d1
+## 📋 Description
+Application web moderne de gestion de stock avec analytics avancées, conçue avec React, TypeScript et Tailwind CSS. Interface ultra-moderne en noir, blanc et bleu avec effets visuels sophistiqués.
 
-## How can I edit this code?
+## ✨ Fonctionnalités
 
-There are several ways of editing your application.
+### 🏠 Dashboard Principal
+- Statistiques en temps réel du stock
+- Graphiques interactifs (ventes, stock, catégories)
+- Vue d'ensemble complète de l'inventaire
 
-**Use Lovable**
+### 📦 Gestion des Produits
+- Ajout/modification/suppression de produits
+- Recherche et filtrage avancés
+- Alertes de stock faible automatiques
+- Catégorisation intelligente
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/ab362dc8-3812-41da-a246-44ab5a6c14d1) and start prompting.
+### 📊 Analytics Avancées
+- Graphiques interactifs (barres, lignes, secteurs)
+- Tendances et prédictions
+- Rapports de performance
+- Visualisation des données en temps réel
 
-Changes made via Lovable will be committed automatically to this repo.
+### 🔍 Surveillance & Alertes
+- Détection automatique de stock critique
+- Alertes de rupture de stock
+- Suivi des tendances de vente
+- Classement des produits par valeur
 
-**Use your preferred IDE**
+## 🛠️ Technologies
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Frontend**: React 18 + TypeScript
+- **Styling**: Tailwind CSS + CSS Modules
+- **Charts**: Recharts
+- **Icons**: Lucide React
+- **UI Components**: Shadcn/ui
+- **Routing**: React Router DOM
+- **Build Tool**: Vite
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🚀 Installation
 
-Follow these steps:
+```bash
+# Cloner le projet
+git clone <url-du-repo>
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Installer les dépendances
+npm install
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Lancer en développement
 npm run dev
+
+# Build de production
+npm run build
 ```
 
-**Edit a file directly in GitHub**
+## 📁 Structure du Projet
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```
+src/
+├── components/          # Composants réutilisables
+├── pages/              # Pages principales
+├── hooks/              # Hooks personnalisés
+├── types/              # Définitions TypeScript
+└── lib/                # Utilitaires
+```
 
-**Use GitHub Codespaces**
+## 🎨 Design System
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+**Palette de couleurs**: Noir, Blanc, Bleu uniquement
+- Effets de verre et de profondeur
+- Animations fluides et modernes
+- Interface responsive et intuitive
 
-## What technologies are used for this project?
+## 📱 Responsive Design
 
-This project is built with:
+Optimisé pour tous les écrans :
+- Desktop (1920px+)
+- Tablet (768px-1024px)
+- Mobile (320px-768px)
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 🔧 Configuration
 
-## How can I deploy this project?
+L'application est prête à l'emploi sans configuration supplémentaire. Les données de démonstration sont incluses pour tester immédiatement toutes les fonctionnalités.
 
-Simply open [Lovable](https://lovable.dev/projects/ab362dc8-3812-41da-a246-44ab5a6c14d1) and click on Share -> Publish.
+## 📄 License
 
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Projet développé avec Lovable - Tous droits réservés.

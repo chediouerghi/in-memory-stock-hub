@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { ProductList } from '@/components/ProductList';
 import { ProductForm } from '@/components/ProductForm';
@@ -52,7 +51,7 @@ const initialProducts: Product[] = [
   },
 ];
 
-export function Products() {
+export default function Products() {
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | undefined>();
